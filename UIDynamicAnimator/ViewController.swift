@@ -24,7 +24,6 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         createGestureRecognazier()
         createCircleViews()
-        createAnotherView()
         createAnimationAndBehaviors()
     }
     //створюємо квадрат
@@ -35,14 +34,6 @@ class ViewController: UIViewController {
         circleView.center = view.center
         view.addSubview(circleView)
     }
-    
-    func createAnotherView() {
-        anotherCircle = UIView(frame: CGRect(x: 100, y: 0, width: 80, height: 80))
-        anotherCircle.layer.cornerRadius = 40
-        anotherCircle.backgroundColor = UIColor.yellow
-//        anotherCircle.center = view.center
-        view.addSubview(anotherCircle)
-    }
     //додаємо жест
     func createGestureRecognazier() {
         let tapGestureRecognazier = UITapGestureRecognizer(target: self, action: #selector(handler))
@@ -52,9 +43,9 @@ class ViewController: UIViewController {
     func createAnimationAndBehaviors() {
         animator = UIDynamicAnimator(referenceView: view)
         //створюємо зіткнення
-        let collusion = UICollisionBehavior(items: [circleView, anotherCircle])
+        let collusion = UICollisionBehavior(items: [circleView])
         collusion.translatesReferenceBoundsIntoBoundary = true
-        pushBehavior = UIPushBehavior(items: [circleView, anotherCircle], mode: .continuous)
+        pushBehavior = UIPushBehavior(items: [circleView], mode: .continuous)
         animator.addBehavior(collusion)
         animator.addBehavior(pushBehavior)
     }
@@ -62,16 +53,10 @@ class ViewController: UIViewController {
         // отримаємо кут view
         let tapPoint: CGPoint = paramTap.location(in: view)
         let circleViewCenterPoint: CGPoint = circleView.center
-        let anotherViewCenterPoint: CGPoint = anotherCircle.center
         let deltaX: CGFloat = tapPoint.x - circleViewCenterPoint.x
-        let deltaX2: CGFloat = tapPoint.x - anotherViewCenterPoint.x
         let deltaY: CGFloat = tapPoint.y - circleViewCenterPoint.y
-        let deltaY2: CGFloat = tapPoint.y - anotherViewCenterPoint.y
         let angle: CGFloat = atan2(deltaY, deltaX)
-        let angle2: CGFloat = atan2(deltaX2, deltaY2)
         pushBehavior.angle = angle
-
-        
         let distanceBehavior: CGFloat = sqrt(pow(tapPoint.x - circleViewCenterPoint.x, 2.0) + pow(tapPoint.y - circleViewCenterPoint.y, 2.0))
         pushBehavior.magnitude = distanceBehavior / 200
         
