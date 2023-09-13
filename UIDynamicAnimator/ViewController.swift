@@ -66,11 +66,11 @@ class ViewController: UIViewController {
         let deltaX: CGFloat = tapPoint.x - circleViewCenterPoint.x
         let deltaX2: CGFloat = tapPoint.x - anotherViewCenterPoint.x
         let deltaY: CGFloat = tapPoint.y - circleViewCenterPoint.y
-        let deltaY2: CGFloat = tapPoint.y - circleViewCenterPoint.y
+        let deltaY2: CGFloat = tapPoint.y - anotherViewCenterPoint.y
         let angle: CGFloat = atan2(deltaY, deltaX)
         let angle2: CGFloat = atan2(deltaX2, deltaY2)
         pushBehavior.angle = angle
-        pushBehavior.angle = angle2
+
         
         let distanceBehavior: CGFloat = sqrt(pow(tapPoint.x - circleViewCenterPoint.x, 2.0) + pow(tapPoint.y - circleViewCenterPoint.y, 2.0))
         pushBehavior.magnitude = distanceBehavior / 200
